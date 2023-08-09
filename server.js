@@ -3,11 +3,17 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PORT= 3000;
+const UserRoutes = require("./src/routes/user_routes")
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
+//app routes
+app.use("/api/user",UserRoutes);
 
+
+//db-->name = ecommerce
 const mongoDbPath= "mongodb+srv://pranimsingh7:pranim2580@cluster0.scwvxin.mongodb.net/ecommerce?retryWrites=true&w=majority";
 mongoose.connect(mongoDbPath).then(
     function(){
