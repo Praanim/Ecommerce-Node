@@ -28,6 +28,19 @@ class ProductController {
         }
     }
     
+    //get products filtered by category
+    static async getProductsByCategory(req,res){
+
+        try{
+            const categoryId = req.params.id;
+            const categoryProducts = await ProductModel.find({category:categoryId});
+            return res.status(200).json({success:true, data:categoryProducts});
+
+        }catch(ex){
+            return res.json({success:false, message :ex});
+
+        }
+    }
 }
 
 module.exports = ProductController;
