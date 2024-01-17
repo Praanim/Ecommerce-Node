@@ -6,6 +6,8 @@ const PORT= 3000;
 const UserRoutes = require("./src/routes/user_routes")
 const CategoryRoutes = require("./src/routes/category_routes");
 const ProductRoutes = require("./src/routes/product_routes");
+const CartRoutes = require("./src/routes/cart_routes");
+
 
 
 
@@ -16,6 +18,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use("/api/user",UserRoutes);
 app.use("/api/category",CategoryRoutes);
 app.use("/api/product",ProductRoutes);
+app.use("/api/cart",CartRoutes);
+
 
 
 
