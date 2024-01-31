@@ -6,6 +6,10 @@ const productSchema = new Schema({
     description :{type :String ,default:""},
     price: {type: Number , required: true},
     images: {type : Array ,default : []},
+    sales: {
+        quantitySold: { type: Number, default: 0 },
+        totalRevenue: { type: Number, default: 0 }
+    },
     updatedOn : {type : Date},
     createdOn : {type :Date}
 });
@@ -28,6 +32,8 @@ productSchema.pre(['update','findOneAndUpdate','updateOne'],function(next){
     this.updatedOn = new Date();
 
     next();
+
+    //TODO:on update revenue should be quantity sold * price
 });
 
 const ProductModel = model('Product',productSchema);
