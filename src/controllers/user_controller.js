@@ -16,9 +16,9 @@ class UserController {
 
   //function to sign in user
 
-  static async signInUser(req, res) {
+  static async getUserByEmail(req, res) {
     try {
-      const { email, password } = req.body;
+      const { email } = req.query;
 
       const foundUser = await UserModel.findOne({ email: email });
 
@@ -26,14 +26,6 @@ class UserController {
         return res
           .status(404)
           .json({ success: false, message: "User not found" });
-      }
-
-      const isMatched = bcrypt.compareSync(password, foundUser.password);
-
-      if (!isMatched) {
-        return res
-          .status(401)
-          .json({ success: false, message: "Password doesn't match" });
       }
 
       return res.status(200).json({ success: true, message: foundUser });

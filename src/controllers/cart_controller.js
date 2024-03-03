@@ -3,14 +3,14 @@ const CartModel = require("../models/cart_model");
 class CartController {
   static async getCartForUser(req, res) {
     try {
-      const user = req.params.userId;
+      const userId = req.params.userId;
 
-      const foundCart = await CartModel.findOne({ user: user }).populate(
+      const foundCart = await CartModel.findOne({ user: userId }).populate(
         "items.product"
       );
 
       if (!foundCart) {
-        const newCart = await CartModel({ user: user });
+        const newCart = await CartModel({ user: userId });
         await newCart.save();
         return res.json({ success: true, data: newCart });
       }
@@ -27,19 +27,11 @@ class CartController {
 
       const foundCart = await CartModel.findOne({ user: user });
 
-      //if a cart is missing then we create a cart
+      //if a cart is missing .
       if (!foundCart) {
-        const newCart = await CartModel({ user: user });
-        newCart.items.push({
-          product: product,
-          quantity: quantity,
-        });
-
-        await newCart.save();
-        return res.json({
-          success: true,
-          data: newCart,
-          message: "Cart Created",
+        return res.status(401).json({
+          success: false,
+          message: "Cart not found for the user.",
         });
       }
       //if cart already exists
@@ -47,8 +39,8 @@ class CartController {
         { user: user },
         { $push: { items: { product: product, quantity: quantity } } },
         { new: true }
-      );
-      return res.json({
+      ).populate("items.product");
+      return res.status(200).json({
         success: true,
         data: updatedCart,
         message: "Cart Updated",
