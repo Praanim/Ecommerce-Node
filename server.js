@@ -6,6 +6,7 @@ const UserRoutes = require("./src/routes/user_routes");
 const CategoryRoutes = require("./src/routes/category_routes");
 const ProductRoutes = require("./src/routes/product_routes");
 const CartRoutes = require("./src/routes/cart_routes");
+const OrderRoutes = require("./src/routes/order_routes");
 require("dotenv").config();
 
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ app.use("/api/user", UserRoutes);
 app.use("/api/category", CategoryRoutes);
 app.use("/api/product", ProductRoutes);
 app.use("/api/cart", CartRoutes);
+app.use("/api/order", OrderRoutes);
 
 //db-->name = ecommerce
 const mongoDbPath = process.env.MONGO_DB_PATH;
