@@ -26,7 +26,9 @@ class OrderController {
     try {
       const { userId } = req.params;
 
-      const orders = await OrderModel.find({ userId: userId });
+      const orders = await OrderModel.find({ userId: userId }).populate(
+        "product"
+      );
 
       if (!orders) {
         return res.status(204).json({

@@ -14,9 +14,11 @@ const orderSchema = new Schema({
 orderSchema.pre("save", function (next) {
   this.updatedOn = new Date();
   this.createdOn = new Date();
+
+  next();
 });
 
-cartSchema.pre(["update", "findOneAndUpdate", "updateOne"], function (next) {
+orderSchema.pre(["update", "findOneAndUpdate", "updateOne"], function (next) {
   this.updatedOn = new Date();
 
   next();
