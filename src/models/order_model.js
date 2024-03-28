@@ -1,12 +1,14 @@
 const { Schema, model } = require("mongoose");
+const { addressSchema } = require("../models/user_model");
 
 const orderSchema = new Schema({
   userId: { type: String, ref: "User", required: true },
   product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
   status: { type: String, default: "created" },
-  quantity: { type: Number, default: 1 },
+  quantity: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
-  transactionId: { type: String, required: true },
+  transactionId: { type: String, required: true, unique: true },
+  address: { type: addressSchema, required: true },
   updatedOn: { type: Date },
   createdOn: { type: Date },
 });

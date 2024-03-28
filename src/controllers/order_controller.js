@@ -1,4 +1,3 @@
-const { json } = require("body-parser");
 const OrderModel = require("../models/order_model");
 
 class OrderController {
@@ -8,6 +7,7 @@ class OrderController {
       const newOrder = new OrderModel(orderData);
       await newOrder.save();
 
+      await newOrder.populate("product");
       return res.status(201).json({
         success: true,
         data: newOrder,
@@ -29,7 +29,6 @@ class OrderController {
       const orders = await OrderModel.find({ userId: userId }).populate(
         "product"
       );
-
       if (!orders) {
         return res.status(204).json({
           success: true,

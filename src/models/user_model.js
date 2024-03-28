@@ -38,7 +38,7 @@ userSchema.pre("save", function (next) {
 
 const UserModel = model("User", userSchema);
 
-module.exports = UserModel;
+module.exports = { UserModel, addressSchema };
 
 /*
 const cartItemSchema = new Schema({
